@@ -1,22 +1,19 @@
 import React, { useState } from "react";
 import "./Homepage.css"; // Make sure to import your CSS file
 import { FaHandPointLeft, FaHandPointRight } from "react-icons/fa";
+
 function Homepage() {
-  const [isIconVisible, setIsIconVisible] = React.useState(false);
-  const [currentImage, setCurrentImage] = useState(
-    "https://picsum.photos/id/1/350/350"
-  );
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const images = [
     {
       id: 1,
-      url: "https://picsum.photos/id/1/350/350",
-      thumbnailUrl: "https://picsum.photos/id/1/50/50",
+      url: "https://picsum.photos/id/20/350/350",
+      thumbnailUrl: "https://picsum.photos/id/20/50/50",
     },
     {
       id: 2,
-      url: "https://picsum.photos/id/2/350/350",
-      thumbnailUrl: "https://picsum.photos/id/2/50/50",
+      url: "https://picsum.photos/id/1/350/350",
+      thumbnailUrl: "https://picsum.photos/id/1/50/50",
     },
     {
       id: 3,
@@ -30,8 +27,8 @@ function Homepage() {
     },
     {
       id: 5,
-      url: "https://picsum.photos/id/5/350/350",
-      thumbnailUrl: "https://picsum.photos/id/5/50/50",
+      url: "https://picsum.photos/id/16/350/350",
+      thumbnailUrl: "https://picsum.photos/id/16/50/50",
     },
     {
       id: 6,
@@ -55,38 +52,38 @@ function Homepage() {
     },
     {
       id: 10,
+      url: "https://picsum.photos/id/2/350/350",
+      thumbnailUrl: "https://picsum.photos/id/2/50/50",
+    },
+    {
+      id: 11,
       url: "https://picsum.photos/id/10/350/350",
       thumbnailUrl: "https://picsum.photos/id/10/50/50",
     },
     {
-      id: 11,
+      id: 12,
       url: "https://picsum.photos/id/11/350/350",
       thumbnailUrl: "https://picsum.photos/id/11/50/50",
     },
     {
-      id: 12,
+      id: 13,
+      url: "https://picsum.photos/id/5/350/350",
+      thumbnailUrl: "https://picsum.photos/id/5/50/50",
+    },
+    {
+      id: 14,
       url: "https://picsum.photos/id/12/350/350",
       thumbnailUrl: "https://picsum.photos/id/12/50/50",
     },
     {
-      id: 13,
+      id: 15,
       url: "https://picsum.photos/id/13/350/350",
       thumbnailUrl: "https://picsum.photos/id/13/50/50",
     },
     {
-      id: 14,
+      id: 16,
       url: "https://picsum.photos/id/14/350/350",
       thumbnailUrl: "https://picsum.photos/id/14/50/50",
-    },
-    {
-      id: 15,
-      url: "https://picsum.photos/id/15/350/350",
-      thumbnailUrl: "https://picsum.photos/id/15/50/50",
-    },
-    {
-      id: 16,
-      url: "https://picsum.photos/id/16/350/350",
-      thumbnailUrl: "https://picsum.photos/id/16/50/50",
     },
     {
       id: 17,
@@ -105,50 +102,57 @@ function Homepage() {
     },
     {
       id: 20,
-      url: "https://picsum.photos/id/20/350/350",
-      thumbnailUrl: "https://picsum.photos/id/20/50/50",
+      url: "https://picsum.photos/id/15/350/350",
+      thumbnailUrl: "https://picsum.photos/id/15/50/50",
     },
   ];
 
   const setImage = (index) => {
     setCurrentImageIndex(index);
- };
+  };
 
- const nextImage = () => {
-    if (currentImageIndex < images.length - 1) {
+  const prevImage = () => {
+    if (currentImageIndex > 0) setCurrentImageIndex(currentImageIndex - 1);
+  };
+
+  const nextImage = () => {
+    if (currentImageIndex < images.length - 1)
       setCurrentImageIndex(currentImageIndex + 1);
-    }
-    setIsIconVisible(oldState => !oldState);
- };
+  };
 
- const prevImage = () => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-    }
-    setIsIconVisible(oldState => !oldState);
- };
-
- return (
-    <div className="wrapper">
+  return (
+    <div className="flex flex-col items-center">
       <h1>Lab 8 - Web: Image Browser - React.JS</h1>
-      <div className="small-images">
+      <div className="small-images flex flex-wrap justify-center">
         {images.map((image, index) => (
           <img
+            className="cursor-pointer m-1 border-2 border-gray-300 hover:border-gray-900"
+            alt="small image container"
             key={image.id}
             src={image.thumbnailUrl}
             onClick={() => setImage(index)}
-            className="img-thumbnail"
           />
         ))}
       </div>
-      <div className="image-navigation">
-        <FaHandPointLeft size={40} onClick={prevImage} disabled={currentImageIndex === 0}/>
-        <img src={images[currentImageIndex].url} className="img-fluid" alt="Selected Image" />
-        <FaHandPointRight size={40} onClick={nextImage} disabled={currentImageIndex === images.length - 1}/>
+      <div className="flex flex-col items-center">
+        <FaHandPointLeft
+          size={40}
+          onClick={prevImage}
+          disabled={currentImageIndex === 0}
+        />
+        <img
+          className="max-w-full h-auto"
+          alt="big image container"
+          src={images[currentImageIndex].url}
+        />
+        <FaHandPointRight
+          size={40}
+          onClick={nextImage}
+          disabled={currentImageIndex === images.length - 1}
+        />
       </div>
-      
     </div>
- );
+  );
 }
 
 export default Homepage;
